@@ -1,7 +1,6 @@
 'use strict';
 
 import Plan from '../model/PlannedEvent.js';
-import Offline from '../libs/offline.js';
 import superagent from 'superagent';
 
 
@@ -21,8 +20,7 @@ class LocalStorageConnector {
 
     const token = this.getAccessToken();
 
-    console.log(Offline);
-    if (token && Offline.state == 'up') {
+    if (token) {
       superagent
         .post('http://localhost:8000/syncronizePlans')
         .send({ plans: inst.calendarPlans })
@@ -116,7 +114,7 @@ class LocalStorageConnector {
 
     const token = this.getAccessToken();
 
-    if (token && Offline.state == 'up') {
+    if (token) {
 
       superagent
         .post('http://localhost:8000/addPlan')
@@ -153,7 +151,7 @@ class LocalStorageConnector {
 
       const token = this.getAccessToken();
 
-      if (token && Offline.state == 'up') {
+      if (token) {
         superagent
           .post('http://localhost:8000/deletePlan')
           .send({ index: deleteIndex, date: plan.date.toDateString() })
@@ -193,7 +191,7 @@ class LocalStorageConnector {
       const inst = this;
       const token = this.getAccessToken();
 
-      if (token && Offline.state == 'up') {
+      if (token) {
         superagent
           .post('http://localhost:8000/updatePlan')
           .send({ plans: inst.calendarPlans })
