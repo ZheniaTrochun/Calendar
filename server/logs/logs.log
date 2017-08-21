@@ -1,0 +1,9 @@
+{"time":"2017-08-13T20:23:43.948Z","lvl":"INFO","msg":"zaloopa"}
+{"time":"2017-08-13T20:23:43.951Z","lvl":"ERROR","msg":"zaloopa"}
+App listening on port 8080
+{"time":"2017-08-13T20:34:48.624Z","lvl":"INFO","msg":"Request from ::ffff:127.0.0.1: GET /"}
+{"time":"2017-08-13T20:34:48.625Z","lvl":"INFO","msg":"zaloopa"}
+{"time":"2017-08-13T20:34:48.625Z","lvl":"ERROR","msg":"zaloopa"}
+{"time":"2017-08-13T20:34:48.636Z","lvl":"INFO","msg":"Response with status 200 in 119 ms."}
+{"time":"2017-08-13T20:34:48.879Z","lvl":"INFO","msg":"Request from ::ffff:127.0.0.1: GET /favicon.ico"}
+{"time":"2017-08-13T20:34:48.888Z","lvl":"INFO","msg":"Response with status 404 in 9 ms."}

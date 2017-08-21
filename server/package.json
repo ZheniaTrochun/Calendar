@@ -1,0 +1,26 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evgenii",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-logging": "^1.1.1",
+    "jsonwebtoken": "^7.4.3",
+    "logops": "^2.1.0",
+    "mocha": "^3.5.0",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.7",
+    "nconf": "^0.8.4",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "password-hash": "^1.2.2"
+  }
+}

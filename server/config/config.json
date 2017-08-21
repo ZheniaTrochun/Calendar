@@ -1,0 +1,10 @@
+{
+  "port": 8000,
+  "secret": "secret",
+  "mongoose": {
+    "uri": "mongodb://localhost/calendar",
+    "options": {
+      "useMongoClient": true
+    }
+  }
+}
