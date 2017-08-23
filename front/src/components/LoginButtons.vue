@@ -30,7 +30,7 @@
             <v-btn outline class="indigo--text center-button" large @click.native="login()">Log me in</v-btn>
           </v-card-row>
         </v-card-text>
-        
+
     </v-card>
   </v-dialog>
   </div>
@@ -39,6 +39,7 @@
 <script>
   import dao from '../dao/LocalStorageConnector.js';
   import superagent from 'superagent';
+  import isOnline from 'is-online';
 
   export default {
     data() {
@@ -66,23 +67,29 @@
 
         const inst = this;
 
-        superagent.post('http://localhost:8000/login')
-          .send({ username: username, password: password })
-          .end((err, res) => {
+        isOnline().then(online => {
+          if (online) {
+            
+            superagent.post('http://localhost:8000/login')
+            .send({ username: username, password: password })
+            .end((err, res) => {
 
-            inst.dialog = !inst.dialog;
+              inst.dialog = !inst.dialog;
 
-            if (!err) {
-              dao.saveAccessToken(res.body.token);
-              dao.saveCurrentUser(res.body.username);
+              if (!err) {
+                dao.saveAccessToken(res.body.token);
+                dao.saveCurrentUser(res.body.username);
 
-              inst.currentUser = res.body.username;
-              inst.token = res.body.token;
-              dao.syncronizePlans();
-              inst.username = '';
-              inst.password = '';
-            }
-          });
+                inst.currentUser = res.body.username;
+                inst.token = res.body.token;
+                dao.syncronizePlans();
+                inst.username = '';
+                inst.password = '';
+              }
+            });
+          }
+        })
+
       }
     }
   }

@@ -42,7 +42,6 @@
 
 <script>
   import LoginButtons from './components/LoginButtons.vue';
-  import isOnline from 'is-online';
 
   export default {
     components: {
