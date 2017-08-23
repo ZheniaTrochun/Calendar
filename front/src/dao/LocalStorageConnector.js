@@ -10,17 +10,17 @@ class LocalStorageConnector {
 
 // method for getting object from local storage, or creating if none is present
   constructor() {
-    this.syncronizePlans();
+    this.syncronizePlans(true);
   }
 
-  syncronizePlans() {
+  syncronizePlans(networkStatus) {
     this.calendarPlans = JSON.parse(localStorage.getItem('myCalendarData'));
 
     const inst = this;
 
     const token = this.getAccessToken();
 
-    if (token) {
+    if (token && networkStatus) {
       superagent
         .post('http://localhost:8000/syncronizePlans')
         .send({ plans: inst.calendarPlans })
@@ -85,7 +85,9 @@ class LocalStorageConnector {
   }
 
 // save method with checking plan duration and correct setting it in local storage
-  addPlan(plan) {
+  addPlan(plan, networkStatus) {
+    console.log(networkStatus);
+    
     const tmpDate = new Date(plan.date.getFullYear(), plan.date.getMonth(),
             plan.date.getDate(), plan.date.getHours(), plan.date.getMinutes(), 0);
     tmpDate.setHours(tmpDate.getHours() + Math.floor(plan.duration));
@@ -114,7 +116,7 @@ class LocalStorageConnector {
 
     const token = this.getAccessToken();
 
-    if (token) {
+    if (token && networkStatus) {
 
       superagent
         .post('http://localhost:8000/addPlan')
@@ -133,7 +135,7 @@ class LocalStorageConnector {
   }
 
 // method for plan removing from local storage
-  removePlan(plan) {
+  removePlan(plan, networkStatus) {
     let deleteIndex = -1;
 
     this.calendarPlans[plan.date.toDateString()].forEach((item, i) => {
@@ -151,7 +153,7 @@ class LocalStorageConnector {
 
       const token = this.getAccessToken();
 
-      if (token) {
+      if (token && networkStatus) {
         superagent
           .post('http://localhost:8000/deletePlan')
           .send({ index: deleteIndex, date: plan.date.toDateString() })
@@ -170,7 +172,7 @@ class LocalStorageConnector {
   }
 
 // method for updating plan
-  updatePlan(oldPlan, newPlan) {
+  updatePlan(oldPlan, newPlan, networkStatus) {
 
     this.calendarPlans = JSON.parse(localStorage.getItem('myCalendarData'));
 
@@ -191,7 +193,7 @@ class LocalStorageConnector {
       const inst = this;
       const token = this.getAccessToken();
 
-      if (token) {
+      if (token && networkStatus) {
         superagent
           .post('http://localhost:8000/updatePlan')
           .send({ plans: inst.calendarPlans })

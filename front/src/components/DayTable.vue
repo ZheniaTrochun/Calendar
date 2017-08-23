@@ -8,7 +8,7 @@
       <tbody>
         <tr v-for="i in 24" :key="i">
           <td class="bordered" v-if="items && items[i-1]">
-            <plan :plan="items[i-1]"></plan>
+            <plan :plan="items[i-1]" :online="online"></plan>
           </td>
           <td class="planAdder bordered" v-else>
             <v-btn class="indigo addBtn" @click.native.stop="openModal(i-1)">
@@ -56,6 +56,9 @@
       },
       items: {
         required: true
+      },
+      online: {
+        required: true
       }
     },
     components: {
@@ -67,7 +70,7 @@
         description: '',
         time: '',
         duration: '',
-        dialog: false,
+        dialog: false
       }
     },
     methods: {
@@ -87,7 +90,7 @@
         const newPlan = new Plan(this.name, this.description ? this.description : '-',
             new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), this.time.split(':')[0], this.time.split(':')[1], 0),
                 this.duration);
-        dao.addPlan(newPlan);
+        dao.addPlan(newPlan, this.online);
         this.items[newPlan.date.getHours()] = newPlan;
 
         this.clearForm();

@@ -54,6 +54,9 @@
     props: {
       plan: {
         required: true
+      },
+      online: {
+        required: true
       }
     },
     data: function() {
@@ -87,7 +90,7 @@
 
         const newPlan = new Plan(this.plan.name, this.description,
           new Date(this.plan.date.getFullYear(), this.plan.date.getMonth(), this.plan.date.getDate(), this.time.split(':')[0], this.time.split(':')[1], 0), this.duration);
-        dao.updatePlan(this.plan, newPlan);
+        dao.updatePlan(this.plan, newPlan, this.online);
 
         console.log('updateTest');
 
@@ -98,7 +101,7 @@
 
       // plan remover
       deletePlan() {
-        dao.removePlan(this.mutablePlan);
+        dao.removePlan(this.mutablePlan, this.online);
         this.mutablePlan = null;
       }
     }

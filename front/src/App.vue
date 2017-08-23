@@ -26,6 +26,7 @@
       <login-buttons></login-buttons>
 
     </v-toolbar>
+
     <main>
       <v-container fluid>
         <router-view keep-alive></router-view>
@@ -41,12 +42,13 @@
 
 <script>
   import LoginButtons from './components/LoginButtons.vue';
+  import isOnline from 'is-online';
 
   export default {
     components: {
       'login-buttons': LoginButtons
     },
-    
+
     data () {
       return {
         right: true,

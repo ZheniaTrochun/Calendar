@@ -59,12 +59,23 @@
             </tr>
           </td>
           <td v-for="item in dates">
-            <day :date="item" :items="fillTableAllEventsByDate(item)"></day>
+            <day :date="item" :items="fillTableAllEventsByDate(item)" :online="online"></day>
           </td>
         </tr>
       </tbody>
 
     </table>
+
+    <v-snackbar
+      :timeout="6000"
+      :success="online"
+      :error="!online"
+      :bottom="true"
+      v-model="snackbar"
+    >
+      {{ online ? 'Connected to Internet!' : 'Oops, connection lost :(' }}
+      <v-btn dark flat @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -78,10 +89,28 @@
         required: true
       }
     },
+
     components: {
       'day': DayTable
     },
+
+    data() {
+      return {
+        online: true,
+        snackbar: false
+      }
+    },
+
+    mounted() {
+      window.addEventListener('online', this.networkChange);
+      window.addEventListener('offline', this.networkChange);
+    },
+
     methods: {
+      networkChange(e) {
+        this.online = (e.type == 'online');
+        this.snackbar = true;
+      },
 
       // method for gettind plans by date from dao
       fillTableAllEventsByDate(date) {
